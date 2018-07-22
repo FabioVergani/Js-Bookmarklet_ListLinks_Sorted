@@ -1,0 +1,65 @@
+console.clear();
+(w=>{
+	const d=w.document;
+	let m=d.links;
+	if(m.length){
+
+		const loc=[],
+		n=w.location.pathname,
+		O=w.Object,
+		C=O.create,
+		ext=C(null),
+		dupe=C(null,{'add':{value:function(p){const o=this;if(p in o){++o[p]}else{o[p]=2}},enumerable:false}}),
+		desc={'tot':{value:1,writable:true,enumerable:false}},
+		exp=/\w+\.\w+$/;
+
+
+		for(const e of m){
+			const s=e.href;
+			if(s.length){
+				const o=ext,i=e.pathname;
+				if(i!==n){
+					let p=e.hostname,x=exp;
+					if(x.test(p)){
+						p=p.match(x)[0]
+					};
+					if(p in o){
+						p=x=o[p];if(i in x){x=x[i];if(x.indexOf(s)===-1){x[x.length]=s}else{dupe.add(s)}}else{x[i]=[s];++p.tot}
+					}else{
+						(o[p]=C(null,desc))[i]=[s]
+					}
+				}else{//è locale
+					const x=loc;
+					if(x.indexOf(s)===-1){const s=e.hash;if(s.length){x[x.length]=s}}
+				}
+			}
+		};
+		m=[];
+		for(const i in ext){
+			const o=ext[i],x=m[m.length]=[i,o];
+			for(const p in o){o[p].sort()};
+		};
+
+
+			//console.log(i)
+
+
+
+//return [i,o]}).sort((a,b)=>b[1].tot-a[1].tot)
+		//m=(O.keys(ext).map(i=>{const o=ext[i];for(const p in o){o[p].sort()};return [i,o]}).sort((a,b)=>b[1].tot-a[1].tot));
+
+		console.info('m:%O',m);
+
+		console.info('ext:%O',ext);
+
+		loc.sort();
+		console.info('loc:%O',loc);
+
+		console.info('dup:%O',dupe);
+
+
+
+	};
+})(window);
+
+
